@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3f6f2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Calorie Tracker">
+<title>My Calorie Tracker</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 24px 18px;
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    background: #f3f6f2;
+    color: #20392c;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  main {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  header { margin: 10px 0 22px; }
+
+  .eyebrow {
+    color: #557363;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  h1 { font-size: 29px; margin: 7px 0; }
+  .subtitle { color: #718077; margin: 0; }
+
+  .card {
+    background: white;
+    border: 1px solid #e3eae3;
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 5px 18px #263c2c08;
+  }
+
+  .label { color: #728077; font-size: 14px; }
+
+  .total {
+    font-size: 42px;
+    font-weight: 750;
+    letter-spacing: -1.5px;
+    margin: 8px 0 2px;
+  }
+
+  .unit { font-size: 15px; font-weight: 500; color: #728077; }
+
+  .progress-track {
+    height: 11px;
+    background: #e9eee9;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .progress {
+    height: 100%;
+    width: 0;
+    background: #27834e;
+    border-radius: 20px;
+    transition: width .2s;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat {
+    background: #f5f8f5;
+    border-radius: 14px;
+    padding: 13px;
+    min-width: 0;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 21px;
+    margin-top: 6px;
+    overflow-wrap: anywhere;
+  }
+
+  h2 { font-size: 17px; margin: 0 0 15px; }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dce5dc;
+    border-radius: 12px;
+    font-size: 18px;
+    background: #fff;
+    color: #20392c;
+    outline-color: #27834e;
+  }
+
+  button {
+    border: 0;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .add {
+    width: 100%;
+    margin-top: 11px;
+    color: white;
+    background: #27834e;
+  }
+
+  .secondary {
+    background: #edf2ed;
+    color: #284635;
+  }
+
+  .danger {
+    background: #fbefed;
+    color: #9a443a;
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #f7f9f7;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .entry strong { font-size: 15px; }
+  .entry button { padding: 8px 10px; font-size: 12px; }
+
+  .empty {
+    color: #7b887f;
+    font-size: 14px;
+    padding: 6px 0;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .note {
+    text-align: center;
+    font-size: 12px;
+    color: #879189;
+    line-height: 1.5;
+    margin: 18px 5px;
+  }
+</style>
+</head>
+
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Your daily progress</div>
+    <h1>Calorie Tracker</h1>
+    <p class="subtitle" id="today"></p>
+  </header>
+
+  <section class="card">
+    <div class="label">Estimated intake</div>
+    <div class="total">
+      <span id="total">0</span>
+      <span class="unit">kcal</span>
+    </div>
+
+    <div class="progress-track">
+      <div class="progress" id="bar"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Daily target</div>
+        <strong>1,800</strong>
+        <div class="label">calories</div>
+      </div>
+      <div class="stat">
+        <div class="label" id="remaining-title">Remaining</div>
+        <strong id="remaining">1,800</strong>
+        <div class="label">calories</div>
+      </div>
+    </div>
+    <p class="label" id="percentage" style="margin-bottom:0">
+      0% of daily target
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Add calories</h2>
+    <form id="calorie-form">
+      <input
+        id="calories"
+        type="number"
+        min="1"
+        step="1"
+        inputmode="numeric"
+        placeholder="e.g. 350"
+        aria-label="Calories to add"
+        required
+      >
+      <button class="add" type="submit">+ Add calories</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Today's entries</h2>
+    <div class="entries" id="entries"></div>
+    <div class="actions">
+      <button class="secondary" id="undo" type="button">
+        Undo last
+      </button>
+      <button class="danger" id="reset" type="button">
+        Reset today
+      </button>
+    </div>
+  </section>
+
+  <p class="note">
+    Your daily target is 1,800 calories. Entries are saved in this
+    browser on this device. Keep using the same Home Screen app
+    to access your saved tracker.
+  </p>
+</main>
+
+<script>
+(() => {
+  const TARGET = 1800;
+  const STORAGE_KEY = "my-calorie-tracker-v1";
+
+  let entries = [];
+  let currentDate = localDate();
+
+  function localDate() {
+    const d = new Date();
+    return [
+      d.getFullYear(),
+      String(d.getMonth() + 1).padStart(2, "0"),
+      String(d.getDate()).padStart(2, "0")
+    ].join("-");
+  }
+
+  function load() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (saved && saved.date === currentDate &&
+          Array.isArray(saved.entries)) {
+        entries = saved.entries.filter(
+          n => Number.isSafeInteger(n) && n > 0
+        );
+      }
+    } catch (_) {
+      entries = [];
+    }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        date: currentDate,
+        entries
+      }));
+    } catch (_) {
+      alert("Could not save your entries in this browser.");
+    }
+  }
+
+  function checkDate() {
+    const today = localDate();
+    if (today !== currentDate) {
+      currentDate = today;
+      entries = [];
+      save();
+    }
+  }
+
+  function format(n) {
+    return n.toLocaleString();
+  }
+
+  function render() {
+    checkDate();
+
+    const total = entries.reduce((sum, n) => sum + n, 0);
+    const remaining = TARGET - total;
+    const percent = total / TARGET * 100;
+
+    document.getElementById("today").textContent =
+      new Date().toLocaleDateString(undefined, {
+        weekday: "long", day: "numeric", month: "long", year: "numeric"
+      });
+
+    document.getElementById("total").textContent = format(total);
+    document.getElementById("remaining").textContent =
+      format(Math.abs(remaining));
+    document.getElementById("remaining-title").textContent =
+      remaining < 0 ? "Over target" : "Remaining";
+
+    document.getElementById("bar").style.width =
+      Math.min(percent, 100) + "%";
+    document.getElementById("percentage").textContent =
+      `${Math.round(percent)}% of daily target`;
+
+    const list = document.getElementById("entries");
+    list.replaceChildren();
+
+    if (!entries.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "No entries yet. Add your first calories above.";
+      list.appendChild(empty);
+    } else {
+      entries.forEach((calories, index) => {
+        const row = document.createElement("div");
+        row.className = "entry";
+
+        const label = document.createElement("strong");
+        label.textContent = `Entry ${index + 1}`;
+
+        const right = document.createElement("div");
+        right.style.display = "flex";
+        right.style.alignItems = "center";
+        right.style.gap = "10px";
+
+        const value = document.createElement("span");
+        value.textContent = `+${format(calories)} kcal`;
+
+        const remove = document.createElement("button");
+        remove.className = "secondary";
+        remove.type = "button";
+        remove.textContent = "Remove";
+        remove.setAttribute("aria-label", `Remove entry ${index + 1}`);
+        remove.addEventListener("click", () => {
+          entries.splice(index, 1);
+          save();
+          render();
+        });
+
+        right.append(value, remove);
+        row.append(label, right);
+        list.appendChild(row);
+      });
+    }
+  }
+
+  document.getElementById("calorie-form").addEventListener("submit", e => {
+    e.preventDefault();
+    checkDate();
+
+    const input = document.getElementById("calories");
+    const value = Number(input.value);
+
+    if (!Number.isSafeInteger(value) || value <= 0) {
+      alert("Enter a whole number of calories greater than zero.");
+      return;
+    }
+
+    entries.push(value);
+    save();
+    input.value = "";
+    render();
+    input.focus();
+  });
+
+  document.getElementById("undo").addEventListener("click", () => {
+    checkDate();
+    if (entries.length) {
+      entries.pop();
+      save();
+      render();
+    }
+  });
+
+  document.getElementById("reset").addEventListener("click", () => {
+    checkDate();
+    if (entries.length &&
+        confirm("Remove all calorie entries for today?")) {
+      entries = [];
+      save();
+      render();
+    }
+  });
+
+  load();
+  render();
+
+  // Refresh the day automatically if the app stays open overnight.
+  setInterval(() => {
+    if (localDate() !== currentDate) {
+      currentDate = localDate();
+      entries = [];
+      save();
+      render();
+    }
+  }, 60000);
+})();
+</script>
+</body>
+</html>
