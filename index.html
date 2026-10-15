@@ -7,86 +7,59 @@
 <meta name="theme-color" content="#000000">
 <title>Calorie Tracker</title>
 <style>
-:root {
-  --black: #000000;
-  --white: #FFFFFF;
-  --purple: #660066;
-  --muted: #777777;
-  --border: #dddddd;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--white);
-  color: var(--black);
-  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-}
-header {
-  background: var(--black);
-  color: var(--white);
-  padding: 23px 18px;
-}
-header h1 { margin: 0 0 5px; font-size: 27px; }
-header p { margin: 0; color: #dddddd; font-size: 14px; }
-main { max-width: 620px; margin: auto; padding: 16px; }
-nav { display: flex; gap: 7px; margin-bottom: 16px; }
-nav button {
-  flex: 1; padding: 12px 4px; border: 1px solid var(--purple);
-  border-radius: 10px; background: var(--white); color: var(--purple);
-  font-weight: 700; font-size: 14px;
-}
-nav button.active { background: var(--purple); color: var(--white); }
-.panel { display: none; }
-.panel.active { display: block; }
-.card {
-  border: 1px solid var(--border); border-radius: 15px;
-  padding: 17px; margin-bottom: 14px; background: var(--white);
-}
-h2 { font-size: 18px; margin: 0 0 14px; }
-.muted { color: var(--muted); font-size: 13px; line-height: 1.5; }
-.numbers { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
-.big { font-size: 27px; font-weight: 800; overflow-wrap: anywhere; }
-.label { color: var(--muted); font-size: 12px; margin-top: 4px; }
-.right { text-align: right; }
-.progress { height: 10px; background: #eeeeee; border-radius: 20px; overflow: hidden; }
-#progressFill { height: 100%; width: 0; background: var(--purple); }
-input, select {
-  display: block; width: 100%; min-height: 44px; padding: 11px;
-  border: 1px solid #cccccc; border-radius: 9px; background: var(--white);
-  color: var(--black); font: inherit;
-}
-label { display: block; font-size: 13px; font-weight: 700; margin: 0 0 7px; }
-.field { margin-bottom: 12px; }
-.row { display: flex; gap: 9px; align-items: end; }
-.row .field { flex: 1; min-width: 0; }
-button.action {
-  min-height: 44px; padding: 11px 14px; border: 0;
-  border-radius: 9px; background: var(--purple); color: var(--white);
-  font-size: 14px; font-weight: 700;
-}
-button.outline {
-  min-height: 40px; padding: 9px 12px; border: 1px solid var(--purple);
-  border-radius: 9px; background: var(--white); color: var(--purple);
-  font-weight: 700;
-}
-.entry, .history-item {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 10px; padding: 12px 0; border-bottom: 1px solid #eeeeee;
-}
-.entry:last-child, .history-item:last-child { border-bottom: 0; }
-.entry-name { font-weight: 700; overflow-wrap: anywhere; }
-.entry-detail { font-size: 12px; color: var(--muted); margin-top: 4px; }
-.entry-cal { font-weight: 800; white-space: nowrap; }
-.entry button { margin-left: 7px; }
-.history-item { width: 100%; text-align: left; background: white; border-top: 0; border-left: 0; border-right: 0; font: inherit; cursor: pointer; }
-.history-item strong { display: block; }
-.status { color: var(--purple); font-size: 12px; font-weight: 700; margin-top: 5px; }
-.empty { padding: 18px 0; color: var(--muted); text-align: center; font-size: 14px; }
-#chart { width: 100%; height: 260px; display: block; }
-.legend { font-size: 12px; color: var(--muted); margin-top: 8px; display: flex; gap: 15px; flex-wrap: wrap; }
-.legend span:first-child::before { content: ""; display: inline-block; width: 9px; height: 9px; background: var(--purple); margin-right: 5px; }
-.legend span:last-child::before { content: ""; display: inline-block; width: 15px; height: 3px; background: var(--black); margin: 0 5px 3px 0; }
-hr { border: 0; border-top: 1px solid var(--border); margin: 15px 0; }
+:root{--black:#000000;--white:#FFFFFF;--purple:#660066;--red:#D00000;--green:#18845B;--muted:#777;--border:#ddd}
+*{box-sizing:border-box}
+body{margin:0;background:var(--white);color:var(--black);font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+header{background:var(--black);color:var(--white);padding:22px 18px}
+header h1{margin:0 0 5px;font-size:27px}
+header p{margin:0;color:#ddd;font-size:14px}
+main{max-width:620px;margin:auto;padding:16px}
+.card{border:1px solid var(--border);border-radius:15px;padding:17px;margin-bottom:14px;background:#fff}
+h2{font-size:18px;margin:0 0 14px}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}
+input,select{width:100%;min-height:45px;padding:12px;border:1px solid #ccc;border-radius:9px;background:#fff;color:#000;font:inherit}
+.field{margin-bottom:13px}
+.row{display:flex;gap:9px;align-items:end}
+.row .field{flex:1;min-width:0}
+button{cursor:pointer;font:inherit}
+.action{min-height:44px;padding:11px 14px;border:0;border-radius:9px;background:var(--purple);color:#fff;font-size:14px;font-weight:700}
+.outline{min-height:40px;padding:9px 12px;border:1px solid var(--purple);border-radius:9px;background:#fff;color:var(--purple);font-weight:700}
+nav{display:flex;gap:7px;margin-bottom:16px}
+nav button{flex:1;padding:12px 4px;border:1px solid var(--purple);border-radius:10px;background:#fff;color:var(--purple);font-weight:700;font-size:14px}
+nav button.active{background:var(--purple);color:#fff}
+.panel{display:none}.panel.active{display:block}
+.big{font-size:27px;font-weight:800;overflow-wrap:anywhere}
+.numbers{display:flex;justify-content:space-between;gap:12px;margin:15px 0}
+.right{text-align:right}
+.label-small{color:var(--muted);font-size:12px;margin-top:4px}
+.progress{height:10px;background:#eee;border-radius:20px;overflow:hidden}
+#progressFill{height:100%;width:0;background:var(--purple)}
+.entry,.history-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #eee}
+.entry:last-child,.history-item:last-child{border-bottom:0}
+.entry-name{font-weight:700;overflow-wrap:anywhere}
+.entry-cal{font-weight:800;white-space:nowrap}
+.entry button{margin-left:7px}
+.history-item{width:100%;text-align:left;background:#fff;border-top:0;border-left:0;border-right:0;font:inherit;cursor:pointer}
+.history-item strong{display:block}
+.detail{font-size:12px;color:var(--muted);margin-top:4px}
+.status{font-size:12px;font-weight:700;margin-top:5px;color:var(--purple)}
+.empty{padding:18px 0;color:var(--muted);text-align:center;font-size:14px}
+.warning{display:none;border:1px solid var(--red);background:#fff5f5;color:var(--red);padding:13px;border-radius:10px;font-weight:800;margin:12px 0}
+#chart{width:100%;height:260px;display:block}
+.legend{font-size:12px;color:#555;margin-top:8px;display:flex;gap:15px;flex-wrap:wrap}
+.legend span:first-child:before{content:"";display:inline-block;width:9px;height:9px;background:var(--purple);margin-right:5px}
+.legend span:last-child:before{content:"";display:inline-block;width:15px;height:3px;background:#000;margin:0 5px 3px 0}
+hr{border:0;border-top:1px solid #ddd;margin:15px 0}
+[hidden]{display:none!important}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}
+.modal{background:#fff;border:2px solid var(--purple);border-radius:17px;padding:23px;width:100%;max-width:400px;max-height:90vh;overflow:auto}
+.modal h2{font-size:22px}
+.modal-line{display:flex;justify-content:space-between;gap:12px;margin:13px 0}
+.modal-line span:last-child{text-align:right;font-weight:700}
+.result-yes{color:var(--green);font-weight:800}
+.result-no{color:var(--red);font-weight:800}
+@media(max-width:380px){.big{font-size:23px}.card{padding:14px}}
 </style>
 </head>
 <body>
@@ -96,377 +69,346 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 15px 0; }
 </header>
 
 <main>
-  <nav>
-    <button class="active" data-tab="today">Today</button>
-    <button data-tab="history">History</button>
-    <button data-tab="progress">Progress</button>
-  </nav>
-
-  <section class="panel active" id="today">
-    <div class="card">
-      <div class="muted" id="date"></div>
-      <div class="numbers">
-        <div><div class="big" id="eaten">0</div><div class="label">Calories eaten</div></div>
-        <div class="right"><div class="big" id="remaining">1,800</div><div class="label" id="remainingLabel">Remaining</div></div>
-      </div>
-      <div class="progress"><div id="progressFill"></div></div>
-      <p class="muted" id="percent">0% of daily target</p>
+  <section id="setupScreen" class="card">
+    <h2>What's your calorie target today?</h2>
+    <p class="muted">Set your target before entering your daily calories.</p>
+    <div class="field">
+      <label for="firstTarget">Daily calorie target (kcal)</label>
+      <input id="firstTarget" type="number" min="1" step="1" inputmode="numeric" value="1800">
     </div>
-
-    <div class="card">
-      <h2>Daily calorie target</h2>
-      <div class="row">
-        <div class="field">
-          <label for="targetInput">Target (calories)</label>
-          <input id="targetInput" type="number" min="1" step="1" inputmode="numeric">
-        </div>
-        <button class="action" id="saveTarget">Save</button>
-      </div>
-      <p class="muted">Your chosen target is saved for the day. New days use your latest target.</p>
-    </div>
-
-    <div class="card">
-      <h2>Add calories</h2>
-      <div class="field">
-        <label for="description">Description (optional)</label>
-        <input id="description" maxlength="80" placeholder="e.g. Lunch">
-      </div>
-      <div class="row">
-        <div class="field">
-          <label for="calories">Calories</label>
-          <input id="calories" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 450">
-        </div>
-        <button class="action" id="add">Add</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Today's entries</h2>
-      <div id="entries"></div>
-      <hr>
-      <button class="outline" id="clear">Clear today's entries</button>
-    </div>
+    <button class="action" id="continueBtn" style="width:100%">Set target & continue →</button>
   </section>
 
-  <section class="panel" id="history">
-    <div class="card" id="historyCard">
-      <h2>Daily history</h2>
-      <p class="muted">Select a day to see its total, target and entries.</p>
-      <div id="historyList"></div>
-    </div>
-    <div class="card" id="detail" hidden>
-      <h2 id="detailDate">Day details</h2>
-      <div class="numbers">
-        <div><div class="big" id="detailEaten">0</div><div class="label">Calories eaten</div></div>
-        <div class="right"><div class="big" id="detailTarget">0</div><div class="label">Target</div></div>
-      </div>
-      <p class="muted" id="detailStatus"></p>
-      <hr>
-      <div id="detailEntries"></div>
-      <button class="outline" id="back">Back to history</button>
-    </div>
-  </section>
+  <section id="appScreen" hidden>
+    <nav>
+      <button class="active" data-tab="today">Today</button>
+      <button data-tab="history">History</button>
+      <button data-tab="progress">Progress</button>
+    </nav>
 
-  <section class="panel" id="progress">
-    <div class="card">
-      <h2>Weekly performance</h2>
-      <label for="weeks">Graph period</label>
-      <select id="weeks">
-        <option value="1">Last 1 week</option>
-        <option value="2">Last 2 weeks</option>
-        <option value="4" selected>Last 4 weeks</option>
-        <option value="8">Last 8 weeks</option>
-        <option value="12">Last 12 weeks</option>
-      </select>
-      <p class="muted" id="chartCaption"></p>
-      <canvas id="chart"></canvas>
-      <div class="legend"><span>Calories eaten</span><span>Daily target</span></div>
-      <p class="muted">Each bar represents one day. Days without entries appear as zero.</p>
-    </div>
-    <div class="card">
-      <h2>Period summary</h2>
-      <div class="numbers">
-        <div><div class="big" id="average">—</div><div class="label">Average per recorded day</div></div>
-        <div class="right"><div class="big" id="under">0</div><div class="label">Days at/under target</div></div>
+    <section class="panel active" id="today">
+      <div class="card">
+        <div class="muted" id="date"></div>
+        <div class="numbers">
+          <div><div class="big" id="eaten">0</div><div class="label-small">Calories eaten</div></div>
+          <div class="right"><div class="big" id="remaining">1,800</div><div class="label-small" id="remainingLabel">Calories remaining</div></div>
+        </div>
+        <div class="progress"><div id="progressFill"></div></div>
+        <p class="muted" id="percent"></p>
+        <div class="warning" id="warning">You are close to your daily target!!</div>
+        <button class="outline" id="changeTarget">Change today's target</button>
       </div>
-      <p class="muted" id="summary"></p>
-    </div>
+
+      <div class="card">
+        <h2>Add calories</h2>
+        <div class="field">
+          <label for="description">Description (optional)</label>
+          <input id="description" maxlength="80" placeholder="e.g. Lunch">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="calories">Calories</label>
+            <input id="calories" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 450">
+          </div>
+          <button class="action" id="add">Add</button>
+        </div>
+        <p class="muted">Enter the calorie amount you have already calculated.</p>
+      </div>
+
+      <div class="card">
+        <h2>Today's entries</h2>
+        <div id="entries"></div>
+        <hr>
+        <button class="outline" id="clear">Clear today's entries</button>
+      </div>
+    </section>
+
+    <section class="panel" id="history">
+      <div class="card" id="historyCard">
+        <h2>Daily history</h2>
+        <p class="muted">Select a day to view its total, target and entries.</p>
+        <div id="historyList"></div>
+      </div>
+      <div class="card" id="detail" hidden>
+        <h2 id="detailDate">Day details</h2>
+        <div class="numbers">
+          <div><div class="big" id="detailEaten">0</div><div class="label-small">Calories eaten</div></div>
+          <div class="right"><div class="big" id="detailTarget">0</div><div class="label-small">Target</div></div>
+        </div>
+        <p class="muted" id="detailStatus"></p>
+        <hr><div id="detailEntries"></div>
+        <button class="outline" id="back">Back to history</button>
+      </div>
+    </section>
+
+    <section class="panel" id="progress">
+      <div class="card">
+        <h2>Calorie performance</h2>
+        <label for="weeks">Graph period</label>
+        <select id="weeks">
+          <option value="1">Last 1 week</option>
+          <option value="2">Last 2 weeks</option>
+          <option value="4" selected>Last 4 weeks</option>
+          <option value="8">Last 8 weeks</option>
+          <option value="12">Last 12 weeks</option>
+        </select>
+        <p class="muted" id="chartCaption"></p>
+        <canvas id="chart"></canvas>
+        <div class="legend"><span>Calories eaten</span><span>Daily target</span></div>
+        <p class="muted">Each bar is one day. Days without entries appear as zero.</p>
+      </div>
+      <div class="card">
+        <h2>Period summary</h2>
+        <div class="numbers">
+          <div><div class="big" id="average">—</div><div class="label-small">Average per recorded day</div></div>
+          <div class="right"><div class="big" id="under">0</div><div class="label-small">Days at/under target</div></div>
+        </div>
+        <p class="muted" id="summary"></p>
+      </div>
+    </section>
   </section>
 </main>
 
+<div class="overlay" id="summaryOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="summaryTitle">
+    <h2 id="summaryTitle">Daily Calorie Summary</h2>
+    <div class="modal-line"><span>Calorie Target:</span><span id="summaryTarget"></span></div>
+    <div class="modal-line"><span>Calories for the day:</span><span id="summaryCalories"></span></div>
+    <hr>
+    <div class="modal-line"><span>Target reached:</span><span id="summaryResult"></span></div>
+    <p class="muted" id="summaryDate"></p>
+    <button class="action" id="closeSummary" style="width:100%">Continue</button>
+  </div>
+</div>
+
 <script>
 (() => {
-  const KEY = "calorie-tracker-history-v2";
-  const OLD_KEYS = ["my-calorie-tracker-v1", "calorieTracker", "calorie-tracker"];
-  const DEFAULT_TARGET = 1800;
-  const $ = id => document.getElementById(id);
-  const todayKey = (date = new Date()) =>
-    `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
-  const dateObj = key => new Date(key + "T12:00:00");
-  const dateLabel = key => dateObj(key).toLocaleDateString(undefined,{
-    weekday:"short", day:"numeric", month:"short", year:"numeric"
-  });
-  const shortLabel = key => dateObj(key).toLocaleDateString(undefined,{day:"numeric",month:"short"});
-  const number = n => Math.round(n).toLocaleString();
-  const targetValue = n => Number.isFinite(Number(n)) && Number(n)>0 ? Math.round(Number(n)) : DEFAULT_TARGET;
+  const KEY="calorie-tracker-history-v2";
+  const DEFAULT_TARGET=1800;
+  const $=id=>document.getElementById(id);
+  const todayKey=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const dateObj=k=>new Date(k+"T12:00:00");
+  const dateLabel=k=>dateObj(k).toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short",year:"numeric"});
+  const shortLabel=k=>dateObj(k).toLocaleDateString(undefined,{day:"numeric",month:"short"});
+  const fmt=n=>Math.round(n).toLocaleString();
+  const validTarget=n=>Number.isFinite(Number(n))&&Number(n)>0?Math.round(Number(n)):DEFAULT_TARGET;
 
-  let data = readData();
+  let data=loadData();
+  let targetChosenToday=Boolean(data.days[todayKey()]);
+  let pendingSummaries=[];
 
-  function readData() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(KEY) || "null");
-      if (saved && saved.days) return {
-        currentTarget: targetValue(saved.currentTarget || DEFAULT_TARGET),
-        days: saved.days
-      };
-    } catch(e) {}
-
-    const result = { currentTarget: DEFAULT_TARGET, days: {} };
-
-    // Try to bring across today's entries from an older tracker format.
-    for (const oldKey of OLD_KEYS) {
-      try {
-        const old = JSON.parse(localStorage.getItem(oldKey) || "null");
-        if (!old) continue;
-        const items = Array.isArray(old) ? old :
-          (old.entries || old.items || old.foods || []);
-        const migrated = items.map((item,i) => {
-          if (typeof item === "number") return {id:Date.now()+i, name:"Calories", calories:item};
-          return {
-            id:item.id || Date.now()+i,
-            name:String(item.name || item.label || item.description || "Calories"),
-            calories:Number(item.calories ?? item.amount ?? item.value ?? 0)
-          };
-        }).filter(item => item.calories > 0);
-        if (migrated.length) {
-          result.days[todayKey()] = {target:DEFAULT_TARGET,entries:migrated};
-          break;
-        }
-      } catch(e) {}
-    }
-    return result;
+  function loadData(){
+    try{
+      const old=JSON.parse(localStorage.getItem(KEY)||"null");
+      if(old&&old.days){
+        old.currentTarget=validTarget(old.currentTarget||DEFAULT_TARGET);
+        old.summaryShown=old.summaryShown||[];
+        return old;
+      }
+    }catch(e){}
+    return {currentTarget:DEFAULT_TARGET,days:{},summaryShown:[],lastOpenedDate:null};
   }
-
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(data)); }
-    catch(e) { alert("The tracker could not save data. Check your browser storage settings."); }
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(data));}
+    catch(e){alert("Could not save data. Check your browser storage settings.");}
   }
-
-  function getDay(key=todayKey()) {
-    if (!data.days[key]) data.days[key] = {
-      target:targetValue(data.currentTarget), entries:[]
-    };
-    data.days[key].target = targetValue(data.days[key].target || data.currentTarget);
-    if (!Array.isArray(data.days[key].entries)) data.days[key].entries=[];
+  function getDay(key=todayKey()){
+    if(!data.days[key])data.days[key]={target:validTarget(data.currentTarget),entries:[]};
+    data.days[key].target=validTarget(data.days[key].target||data.currentTarget);
+    if(!Array.isArray(data.days[key].entries))data.days[key].entries=[];
     return data.days[key];
   }
+  function total(day){return(day?.entries||[]).reduce((s,e)=>s+Number(e.calories||0),0);}
 
-  function total(day) {
-    return (day?.entries || []).reduce((sum,e)=>sum+Number(e.calories || 0),0);
+  function prepareDayTransition(){
+    const today=todayKey();
+    // On the first upgraded launch, don't unexpectedly show old summaries.
+    if(!data.lastOpenedDate){data.lastOpenedDate=today;save();return;}
+    if(data.lastOpenedDate<today){
+      let cursor=dateObj(data.lastOpenedDate);
+      const end=dateObj(today);
+      while(cursor<end){
+        const key=todayKey(cursor);
+        if(data.days[key]&&!data.summaryShown.includes(key))pendingSummaries.push(key);
+        cursor.setDate(cursor.getDate()+1);
+      }
+      data.lastOpenedDate=today;
+      save();
+    }
   }
 
-  function renderToday() {
-    const key=todayKey(), day=getDay(key), eaten=total(day), target=day.target;
-    const remaining=target-eaten;
+  function showSummary(key){
+    const day=data.days[key];
+    if(!day)return;
+    const eaten=total(day),target=validTarget(day.target),reached=eaten<=target;
+    $("summaryTarget").textContent=fmt(target)+" kcal";
+    $("summaryCalories").textContent=fmt(eaten)+" kcal";
+    $("summaryResult").textContent=reached?"Yes 😊":"No ☹️";
+    $("summaryResult").className=reached?"result-yes":"result-no";
+    $("summaryDate").textContent="Summary for "+dateLabel(key);
+    $("summaryOverlay").hidden=false;
+    $("closeSummary").onclick=()=>{
+      $("summaryOverlay").hidden=true;
+      if(!data.summaryShown.includes(key))data.summaryShown.push(key);
+      save();
+      pendingSummaries=pendingSummaries.filter(k=>k!==key);
+      if(pendingSummaries.length)showSummary(pendingSummaries[0]);
+    };
+  }
+
+  function renderToday(){
+    const key=todayKey(),day=getDay(),eaten=total(day),target=day.target,diff=target-eaten;
     $("date").textContent=dateLabel(key);
-    $("eaten").textContent=number(eaten);
-    $("remaining").textContent=number(Math.abs(remaining));
-    $("remainingLabel").textContent=remaining<0?"Over target":"Calories remaining";
+    $("eaten").textContent=fmt(eaten);
+    $("remaining").textContent=fmt(Math.abs(diff));
+    $("remainingLabel").textContent=diff<0?"Over target":"Calories remaining";
     $("progressFill").style.width=Math.min(100,eaten/target*100)+"%";
-    $("progressFill").style.background=eaten>target?"#000000":"#660066";
-    $("percent").textContent=`${Math.round(eaten/target*100)}% of daily target`+
-      (eaten>target?" · over target":"");
-    $("targetInput").value=target;
-
-    const box=$("entries"); box.replaceChildren();
-    if (!day.entries.length) {
-      box.innerHTML='<div class="empty">No calories added yet today.</div>';
-      return;
-    }
+    $("percent").textContent=fmt(eaten/target*100)+"% of daily target";
+    $("warning").style.display=eaten>=target*.9&&eaten<=target?"block":"none";
+    $("targetInput");
+    const box=$("entries");box.replaceChildren();
+    if(!day.entries.length){box.innerHTML='<div class="empty">No calories added yet today.</div>';return;}
     [...day.entries].reverse().forEach(entry=>{
-      const row=document.createElement("div"); row.className="entry";
-      const left=document.createElement("div");
-      const name=document.createElement("div"); name.className="entry-name";
-      name.textContent=entry.name || "Calories";
-      left.append(name);
-      const right=document.createElement("div"); right.className="entry-cal";
-      right.textContent=number(entry.calories)+" kcal";
-      const remove=document.createElement("button"); remove.className="outline";
-      remove.textContent="Remove";
-      remove.addEventListener("click",()=>{
-        day.entries=day.entries.filter(e=>e.id!==entry.id);
-        save(); renderAll();
-      });
-      const wrap=document.createElement("div"); wrap.style.display="flex";
-      wrap.style.alignItems="center"; wrap.append(right,remove);
-      row.append(left,wrap); box.append(row);
+      const row=document.createElement("div");row.className="entry";
+      const name=document.createElement("div");name.className="entry-name";name.textContent=entry.name||"Calories";
+      const right=document.createElement("div");right.style.display="flex";right.style.alignItems="center";
+      const amount=document.createElement("strong");amount.className="entry-cal";amount.textContent=fmt(entry.calories)+" kcal";
+      const remove=document.createElement("button");remove.className="outline";remove.textContent="Remove";
+      remove.addEventListener("click",()=>{day.entries=day.entries.filter(e=>e.id!==entry.id);save();renderAll();});
+      right.append(amount,remove);row.append(name,right);box.append(row);
     });
   }
 
-  function renderHistory() {
-    const list=$("historyList"); list.replaceChildren();
-    const keys=Object.keys(data.days).sort((a,b)=>b.localeCompare(a));
-    if (!keys.length) {
-      list.innerHTML='<div class="empty">Your saved days will appear here.</div>';
-      return;
-    }
-    keys.forEach(key=>{
-      const day=data.days[key], eaten=total(day), target=targetValue(day.target);
-      const btn=document.createElement("button"); btn.className="history-item";
+  function renderHistory(){
+    const list=$("historyList");list.replaceChildren();
+    Object.keys(data.days).sort((a,b)=>b.localeCompare(a)).forEach(key=>{
+      const day=data.days[key],eaten=total(day),target=validTarget(day.target);
+      const btn=document.createElement("button");btn.className="history-item";
       const left=document.createElement("span");
-      const date=document.createElement("strong");
-      date.textContent=key===todayKey()?"Today · "+dateLabel(key):dateLabel(key);
-      const info=document.createElement("span"); info.className="entry-detail";
-      info.textContent=`${day.entries.length} entries · target ${number(target)} kcal`;
+      const date=document.createElement("strong");date.textContent=key===todayKey()?"Today · "+dateLabel(key):dateLabel(key);
+      const info=document.createElement("span");info.className="detail";info.textContent=`${day.entries.length} entries · target ${fmt(target)} kcal`;
       left.append(date,info);
-      const right=document.createElement("span"); right.style.textAlign="right";
-      const calories=document.createElement("strong"); calories.textContent=number(eaten)+" kcal";
-      const status=document.createElement("span"); status.className="status";
-      status.textContent=eaten>target?"Over target":"At/under target";
-      right.append(calories,status); btn.append(left,right);
-      btn.addEventListener("click",()=>showDetail(key));
-      list.append(btn);
+      const right=document.createElement("span");right.style.textAlign="right";
+      const amount=document.createElement("strong");amount.textContent=fmt(eaten)+" kcal";
+      const status=document.createElement("span");status.className="status";status.textContent=eaten>target?"Over target":"At/under target";
+      right.append(amount,status);btn.append(left,right);btn.addEventListener("click",()=>showDetail(key));list.append(btn);
+    });
+    if(!list.children.length)list.innerHTML='<div class="empty">Your saved days will appear here.</div>';
+  }
+
+  function showDetail(key){
+    const day=data.days[key],eaten=total(day),target=validTarget(day.target);
+    $("historyCard").hidden=true;$("detail").hidden=false;
+    $("detailDate").textContent=dateLabel(key);$("detailEaten").textContent=fmt(eaten);$("detailTarget").textContent=fmt(target);
+    $("detailStatus").textContent=eaten<=target?fmt(target-eaten)+" calories remaining for this day.":fmt(eaten-target)+" calories over this day's target.";
+    const box=$("detailEntries");box.replaceChildren();
+    if(!day.entries.length)box.innerHTML='<div class="empty">No entries saved for this day.</div>';
+    day.entries.forEach(e=>{
+      const row=document.createElement("div");row.className="entry";
+      const name=document.createElement("div");name.className="entry-name";name.textContent=e.name||"Calories";
+      const amount=document.createElement("strong");amount.className="entry-cal";amount.textContent=fmt(e.calories)+" kcal";
+      row.append(name,amount);box.append(row);
     });
   }
 
-  function showDetail(key) {
-    const day=data.days[key], eaten=total(day), target=targetValue(day.target);
-    $("historyCard").hidden=true; $("detail").hidden=false;
-    $("detailDate").textContent=dateLabel(key);
-    $("detailEaten").textContent=number(eaten);
-    $("detailTarget").textContent=number(target);
-    $("detailStatus").textContent=eaten>target
-      ? `${number(eaten-target)} calories over the target for this day.`
-      : `${number(target-eaten)} calories remaining for this day.`;
-    const box=$("detailEntries"); box.replaceChildren();
-    if (!day.entries.length) box.innerHTML='<div class="empty">No entries saved for this day.</div>';
-    day.entries.forEach(entry=>{
-      const row=document.createElement("div"); row.className="entry";
-      const name=document.createElement("div"); name.className="entry-name";
-      name.textContent=entry.name || "Calories";
-      const val=document.createElement("div"); val.className="entry-cal";
-      val.textContent=number(entry.calories)+" kcal";
-      row.append(name,val); box.append(row);
-    });
-  }
-
-  function renderChart() {
-    const weeks=Number($("weeks").value), count=weeks*7;
-    const keys=[];
-    for(let i=count-1;i>=0;i--){
-      const d=new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate()-i);
-      keys.push(todayKey(d));
-    }
+  function renderChart(){
+    const weeks=Number($("weeks").value),count=weeks*7,keys=[];
+    for(let i=count-1;i>=0;i--){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-i);keys.push(todayKey(d));}
     $("chartCaption").textContent=`Daily intake and target for the last ${weeks} ${weeks===1?"week":"weeks"}.`;
-
-    const canvas=$("chart"), width=Math.max(280,canvas.clientWidth||320), height=260;
-    const dpr=window.devicePixelRatio||1;
-    canvas.width=width*dpr; canvas.height=height*dpr;
-    const ctx=canvas.getContext("2d"); ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.clearRect(0,0,width,height);
-
-    const left=39, right=7, top=14, bottom=38;
-    const plotW=width-left-right, plotH=height-top-bottom;
-    const vals=keys.map(k=>total(data.days[k]));
-    const targets=keys.map(k=>data.days[k]?targetValue(data.days[k].target):targetValue(data.currentTarget));
-    const max=Math.max(1000,...vals,...targets)*1.12;
-
-    ctx.font="10px -apple-system, BlinkMacSystemFont, Arial";
-    ctx.textAlign="right"; ctx.textBaseline="middle";
+    const canvas=$("chart"),width=Math.max(280,canvas.clientWidth||320),height=260,dpr=window.devicePixelRatio||1;
+    canvas.width=width*dpr;canvas.height=height*dpr;
+    const ctx=canvas.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
+    const left=39,right=7,top=14,bottom=38,pw=width-left-right,ph=height-top-bottom;
+    const values=keys.map(k=>total(data.days[k])),targets=keys.map(k=>data.days[k]?validTarget(data.days[k].target):validTarget(data.currentTarget));
+    const max=Math.max(1000,...values,...targets)*1.12;
+    ctx.font="10px Arial";ctx.textAlign="right";ctx.textBaseline="middle";
     for(let i=0;i<=4;i++){
-      const v=max*i/4, y=top+plotH-(v/max)*plotH;
-      ctx.strokeStyle="#e5e5e5"; ctx.beginPath();
-      ctx.moveTo(left,y); ctx.lineTo(width-right,y); ctx.stroke();
-      ctx.fillStyle="#555555";
-      ctx.fillText(v>=1000?(v/1000).toFixed(v>=10000?0:1)+"k":Math.round(v),left-5,y);
+      const v=max*i/4,y=top+ph-v/max*ph;
+      ctx.strokeStyle="#e5e5e5";ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(width-right,y);ctx.stroke();
+      ctx.fillStyle="#555";ctx.fillText(v>=1000?(v/1000).toFixed(v>=10000?0:1)+"k":Math.round(v),left-5,y);
     }
-
-    const slot=plotW/count, barW=Math.max(2,Math.min(18,slot*.65));
-    vals.forEach((v,i)=>{
-      const x=left+i*slot+(slot-barW)/2, bh=(v/max)*plotH;
-      ctx.fillStyle="#660066";
-      ctx.fillRect(x,top+plotH-bh,barW,bh);
-    });
-
-    ctx.strokeStyle="#000000"; ctx.lineWidth=1.5; ctx.beginPath();
-    targets.forEach((v,i)=>{
-      const x=left+i*slot+slot/2, y=top+plotH-(v/max)*plotH;
-      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    });
-    ctx.stroke();
-
+    const slot=pw/count,bw=Math.max(2,Math.min(18,slot*.65));
+    values.forEach((v,i)=>{const x=left+i*slot+(slot-bw)/2,bh=v/max*ph;ctx.fillStyle="#660066";ctx.fillRect(x,top+ph-bh,bw,bh);});
+    ctx.strokeStyle="#000";ctx.lineWidth=1.5;ctx.beginPath();
+    targets.forEach((v,i)=>{const x=left+i*slot+slot/2,y=top+ph-v/max*ph;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();
     const step=weeks<=2?1:weeks<=4?4:7;
-    ctx.fillStyle="#555555"; ctx.textAlign="center"; ctx.textBaseline="top";
-    keys.forEach((key,i)=>{
-      if(i%step===0 || i===keys.length-1)
-        ctx.fillText(shortLabel(key),left+i*slot+slot/2,top+plotH+8);
-    });
-
-    const recorded=keys.filter(k=>data.days[k]);
-    const sum=recorded.reduce((s,k)=>s+total(data.days[k]),0);
-    const under=recorded.filter(k=>total(data.days[k])<=targetValue(data.days[k].target)).length;
-    $("average").textContent=recorded.length?number(sum/recorded.length):"—";
-    $("under").textContent=under;
-    $("summary").textContent=`${recorded.length} of ${count} days have saved records. Only recorded days are included in the average and target count.`;
+    ctx.fillStyle="#555";ctx.textAlign="center";ctx.textBaseline="top";
+    keys.forEach((k,i)=>{if(i%step===0||i===keys.length-1)ctx.fillText(shortLabel(k),left+i*slot+slot/2,top+ph+8);});
+    const recorded=keys.filter(k=>data.days[k]),sum=recorded.reduce((s,k)=>s+total(data.days[k]),0);
+    $("average").textContent=recorded.length?fmt(sum/recorded.length):"—";
+    $("under").textContent=recorded.filter(k=>total(data.days[k])<=validTarget(data.days[k].target)).length;
+    $("summary").textContent=`${recorded.length} of ${count} days have saved records. Only recorded days count toward the average.`;
   }
 
-  function renderAll() {
-    renderToday(); renderHistory();
-    if($("progress").classList.contains("active")) renderChart();
+  function renderAll(){
+    renderToday();renderHistory();
+    if($("progress").classList.contains("active"))renderChart();
   }
+
+  function openApp(){
+    $("setupScreen").hidden=true;$("appScreen").hidden=false;
+    document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab==="today"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="today"));
+    renderAll();
+  }
+
+  $("continueBtn").addEventListener("click",()=>{
+    const target=Number($("firstTarget").value);
+    if(!Number.isFinite(target)||target<=0){alert("Enter a target greater than zero.");return;}
+    data.currentTarget=Math.round(target);
+    getDay().target=Math.round(target);
+    targetChosenToday=true;
+    save();openApp();
+    if(pendingSummaries.length)showSummary(pendingSummaries[0]);
+  });
+
+  $("changeTarget").addEventListener("click",()=>{
+    $("firstTarget").value=getDay().target;
+    $("setupScreen").hidden=false;$("appScreen").hidden=true;
+    $("continueBtn").textContent="Save target & return →";
+  });
 
   $("add").addEventListener("click",()=>{
     const calories=Number($("calories").value);
-    if(!Number.isFinite(calories)||calories<=0) {
-      alert("Enter a calorie amount greater than zero."); return;
-    }
+    if(!Number.isFinite(calories)||calories<=0){alert("Enter a calorie amount greater than zero.");return;}
     getDay().entries.push({
       id:Date.now().toString()+"-"+Math.random().toString(36).slice(2),
-      name:$("description").value.trim() || "Calories",
-      calories:Math.round(calories)
+      name:$("description").value.trim()||"Calories",calories:Math.round(calories)
     });
-    $("calories").value=""; $("description").value="";
-    save(); renderAll();
+    $("calories").value="";$("description").value="";save();renderAll();
   });
-
   $("calories").addEventListener("keydown",e=>{if(e.key==="Enter")$("add").click();});
   $("description").addEventListener("keydown",e=>{if(e.key==="Enter")$("add").click();});
-
-  $("saveTarget").addEventListener("click",()=>{
-    const value=Number($("targetInput").value);
-    if(!Number.isFinite(value)||value<=0) {
-      alert("Enter a target greater than zero."); return;
-    }
-    data.currentTarget=Math.round(value);
-    getDay().target=Math.round(value);
-    save(); renderAll();
-  });
-
   $("clear").addEventListener("click",()=>{
-    if(confirm("Remove all entries for today? This cannot be undone.")) {
-      getDay().entries=[]; save(); renderAll();
+    if(confirm("Remove all entries for today? This cannot be undone.")){getDay().entries=[];save();renderAll();}
+  });
+  $("back").addEventListener("click",()=>{$("detail").hidden=true;$("historyCard").hidden=false;});
+  document.querySelectorAll("nav button").forEach(button=>button.addEventListener("click",()=>{
+    document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b===button));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===button.dataset.tab));
+    if(button.dataset.tab==="history"){ $("detail").hidden=true;$("historyCard").hidden=false;renderHistory(); }
+    if(button.dataset.tab==="progress")renderChart();
+  }));
+  $("weeks").addEventListener("change",renderChart);
+  window.addEventListener("resize",()=>{if($("progress").classList.contains("active"))renderChart();});
+
+  prepareDayTransition();
+  getDay();save();
+  $("firstTarget").value=getDay().target;
+  $("continueBtn").textContent="Set target & continue →";
+  // Show the target screen first each time the app is opened.
+  $("setupScreen").hidden=false;$("appScreen").hidden=true;
+  // Check again if the app remains open over midnight.
+  document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="visible"){
+      const previous=data.lastOpenedDate;
+      prepareDayTransition();getDay();save();
+      if(previous!==data.lastOpenedDate){
+        $("firstTarget").value=getDay().target;
+        $("setupScreen").hidden=false;$("appScreen").hidden=true;
+      }
     }
   });
-
-  $("back").addEventListener("click",()=>{
-    $("detail").hidden=true; $("historyCard").hidden=false;
-  });
-
-  document.querySelectorAll("nav button").forEach(button=>{
-    button.addEventListener("click",()=>{
-      document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b===button));
-      document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===button.dataset.tab));
-      if(button.dataset.tab==="progress") renderChart();
-      if(button.dataset.tab==="history") renderHistory();
-    });
-  });
-
-  $("weeks").addEventListener("change",renderChart);
-  window.addEventListener("resize",()=>{
-    if($("progress").classList.contains("active")) renderChart();
-  });
-
-  getDay(); save(); renderAll();
 })();
 </script>
 </body>
